@@ -1,12 +1,17 @@
-import React from 'react'
+import React,{ useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faPlus, faPlay, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Modal, show } from 'react-bootstrap';
+import { Modal, show, Button } from 'react-bootstrap';
 
-const MovieBox = ({title,poster_path
+const MovieBox = ({title,poster_path,overview,vote_average,release_date
 }) => {
     let img_path = "https://image.tmdb.org/t/p/w500";
+    const [show,setShow] = useState(false);
+
+    const handleShow =()=> setShow(true);
+    const handleClose =()=> setShow(false);
+
   return (
     <div className='container'>
         <img className="img" src= {img_path+poster_path} alt="" />
@@ -16,7 +21,7 @@ const MovieBox = ({title,poster_path
         <button ><FontAwesomeIcon className='fontIcon' icon={faPlus} /></button>
        
         <button><FontAwesomeIcon className='fontIcon'  icon={faThumbsUp} /></button>
-        <button className="more fontIcon"  ><FontAwesomeIcon icon={faCaretDown} /></button>
+        <button className="more fontIcon" onClick={handleShow} ><FontAwesomeIcon icon={faCaretDown} /></button>
         </div>
         <br />
         <div>{title}</div>
@@ -25,22 +30,25 @@ const MovieBox = ({title,poster_path
             <button >16+</button>
             <span>1h 29m</span>
             <button>HD</button>
-              {/* <Modal  show={show} onHide={handleClose}>
+              <Modal  show={show} onHide={handleClose}>
                 <Modal.Header className='bg-dark' closeButton>
                     <Modal.Title >
                         
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='bg-dark'>
-                <img className='card-img-top' style={{height:"500px", width: "100%"}} src={img_path+movies.info.poster_path} alt="" />
-                <h2 className='mt-4'>{movies.info.title}</h2>
+                <img className='card-img-top' style={{height:"500px", width: "100%"}} src={img_path+poster_path} alt="" />
+                <h2 className='mt-4'>{title}</h2>
                         <br />
                         <br />
-                <h6 >OVERVIEW:  <span className='ms-3'> {movies.info.overview}</span></h6>
-                        <h5> Release Date: <span className='ms-4 '>{movies.info.release_date} </span></h5>
-                        <h6 > VOte_AVERAGE: <span className='ms-4 text-success'>{movies.info.vote_average}</span> </h6>
+                <h6 >OVERVIEW:  <span className='ms-3'> {overview}</span></h6>
+                        <h5> Release Date: <span className='ms-4 '>{release_date} </span></h5>
+                        <h6 > VOte_AVERAGE: <span className='ms-4 text-success'>{vote_average}</span> </h6>
                 </Modal.Body>
-              </Modal> */}
+                <Modal.Footer className='bg-dark'>
+                    <Button className='bg-danger' onClick={handleClose}>close</Button>
+                </Modal.Footer>
+              </Modal>
 
         </div> 
         <div className="text">
